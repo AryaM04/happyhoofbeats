@@ -13,7 +13,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <section class="hero">
+    <!-- Mobile Navigation -->
+    <nav id="mobile-nav" class="mobile-nav">
+        <div class="nav-header">
+            <div class="nav-logo">
+                <img src="assets/logo_white.png" alt="Happy Hoofbeats" class="nav-logo-img">
+                <span class="nav-title">Happy Hoofbeats</span>
+            </div>
+            <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+        </div>
+        <div id="nav-menu" class="nav-menu">
+            <a href="#hero" class="nav-link">Home</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#ponies" class="nav-link">Meet the Ponies</a>
+            <a href="#testimonials" class="nav-link">Testimonials</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
         <div class="container">
             <div class="hero__content">
                 <h1 class="hero__text title">Therapy Ponies For All Occasions</h1>
@@ -38,7 +60,7 @@
             </div>
         </div>
     </section>
-    <section class="content1">
+    <section id="services" class="content1">
         
         <div class="container section">
             <div class="content__image">
@@ -47,7 +69,7 @@
             <div class="content">
                 <h1 class="heading text">Events</h1>
                 <p class="text">We have attended several events in support of charities, sports clubs, after school clubs, children’s groups and many others.If you would be interested in having our ponies along to support you, please contact us to discuss your requirements and we will put a package together tailored to your needs.</p>
-                <p class="text">Contact us below for more details and pricing.</p>
+                <p class="text"><a href ="#contact">Contact us</a> below for more details and pricing.</p>
             </div>
         </div>
 
@@ -66,8 +88,8 @@
                 <img src="assets/services/schools2.jpg" class="content__img">
             </div>
             <div class="content">
-                <h1 class="heading text">Schools</h1>
-                <p class="text">Our ponies have been delighting pupils and staff at several schools! Their calm and gentle manner allows the children to get hands on and stimulate all their senses. Through touch, sight, smell and hearing, children get a fully immersive experience.</p>
+                <h1 class="heading text">Schools, Colleges and Universities.</h1>
+                <p class="text">Our ponies have been delighting pupils and staff at several schools! Their calm and gentle manner allows the children to get hands on and stimulate all their senses. Through touch, sight, smell and hearing, children get a fully immersive experience. Whether you’re transitioning from primary to secondary school or onto higher education, our ponies can support you every step of the way! </p>
                 <p class="text">Visits are charged at £125 for the first hour, which includes our travel costs within a radius of 26 miles. Any additional hours are charged at £100 or £50 for a half hour. We are more than happy to travel outwith this radius and a small additional charge will be made dependant upon the distance. Price available upon request.</p>
             </div>
         </div>
@@ -116,7 +138,7 @@
             </div>
         </div>
     </section>
-    <section class="content2">
+    <section id="ponies" class="content2">
         <h1 class="heading text">Meet the Ponies</h1>
         <div class="slideshow-container">
             <div class="slideshow-wrapper">
@@ -138,7 +160,7 @@
                 <div class="slide">
                     <div class="container section">
                         <div class="content__image">
-                            <img src="assets/ponies/sparkles.JPG" class="content__img" alt="Sparkles the Pony">
+                            <img src="assets/ponies/sparkles.jpg" class="content__img" alt="Sparkles the Pony">
                         </div>
                         <div class="content">
                             <h2 class="subheading text">Sparkles</h2>
@@ -152,7 +174,7 @@
                 <div class="slide">
                     <div class="container section">
                         <div class="content__image">
-                            <img src="assets/ponies/jasper.JPG" class="content__img" alt="Jasper the Pony">
+                            <img src="assets/ponies/jasper.jpg" class="content__img" alt="Jasper the Pony">
                         </div>
                         <div class="content">
                             <h2 class="subheading text">Jasper</h2>
@@ -180,7 +202,7 @@
                 <div class="slide">
                     <div class="container section">
                         <div class="content__image">
-                            <img src="assets/ponies/willow.JPG" class="content__img" alt="Willow the Pony">
+                            <img src="assets/ponies/willow.jpg" class="content__img" alt="Willow the Pony">
                         </div>
                         <div class="content">
                             <h2 class="subheading text">Willow</h2>
@@ -220,7 +242,7 @@
             </div>
         </div>
     </section>
-    <section class="content1">
+    <section id="testimonials" class="content1">
         <div class="slideshow-container testimonials-slideshow">
             <div class="container section">
                 <div class="testimonial-content">
@@ -243,7 +265,7 @@
             <div class="slide-indicators" id="testimonial-indicators"></div>
         </div>
     </section>
-    <section class="content2">
+    <section id="contact" class="content2">
         <h1 class="heading text">Contact Form</h1>
         <form class="form" action="https://api.web3forms.com/submit" method="POST">
 
@@ -279,7 +301,7 @@
                         <li>Gift Vouchers</li>
                         <li>One to One Sessions</li>
                         <li>Nursing Homes</li>
-                        <li>Schools</li>
+                        <li>Schools, Colleges and Universities.</li>
                         <li>Pony Parties</li>
                         <li>Pony Pampers</li>
                         <li>Events</li>

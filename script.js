@@ -35,30 +35,38 @@ function currentSlide(index) {
 
 // Auto-advance slideshow
 function startAutoSlide() {
+    // Clear any existing interval first
+    if (slideInterval) {
+        clearInterval(slideInterval);
+    }
     slideInterval = setInterval(() => {
         showSlide(currentSlideIndex + 1);
-    }, 5000); // Change slide every 5 seconds
+    }, 8000); // Change slide every 8 seconds
 }
 
 // Reset auto-advance timer
 function resetAutoSlide() {
-    clearInterval(slideInterval);
+    if (slideInterval) {
+        clearInterval(slideInterval);
+    }
     startAutoSlide();
 }
 
 // Touch/swipe support for mobile
 let startX = 0;
 let endX = 0;
-const slideshowContainer = document.querySelector('.slideshow-container');
+const slideshowContainer = document.querySelector('.slideshow-container:not(.testimonials-slideshow)');
 
-slideshowContainer.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-});
+if (slideshowContainer) {
+    slideshowContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
 
-slideshowContainer.addEventListener('touchend', (e) => {
-    endX = e.changedTouches[0].clientX;
-    handleSwipe();
-});
+    slideshowContainer.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        handleSwipe();
+    });
+}
 
 function handleSwipe() {
     const swipeThreshold = 50; // Minimum distance for a swipe
@@ -85,13 +93,17 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Pause slideshow when hovering over it
-slideshowContainer.addEventListener('mouseenter', () => {
-    clearInterval(slideInterval);
-});
+if (slideshowContainer) {
+    slideshowContainer.addEventListener('mouseenter', () => {
+        if (slideInterval) {
+            clearInterval(slideInterval);
+        }
+    });
 
-slideshowContainer.addEventListener('mouseleave', () => {
-    startAutoSlide();
-});
+    slideshowContainer.addEventListener('mouseleave', () => {
+        startAutoSlide();
+    });
+}
 
 // Initialize slideshow
 document.addEventListener('DOMContentLoaded', () => {
@@ -391,9 +403,80 @@ function showConfirmationMessage(message, type = 'success') {
     }, 5000);
 }
 
+// Mobile Navigation Functionality
+function initializeMobileNav() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    // Toggle mobile menu
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Close mobile menu
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            
+            // Get the target section
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                // Calculate offset for fixed nav
+                const navHeight = document.querySelector('.mobile-nav').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navHeight - 10; // 10px extra padding
+                
+                // Smooth scroll to target
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+    
+    // Handle scroll to highlight active section
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const navHeight = document.querySelector('.mobile-nav').offsetHeight;
+        const scrollPos = window.scrollY + navHeight + 50; // 50px buffer
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const navLink = document.querySelector(`.nav-link[href="#${section.id}"]`);
+            
+            if (navLink) {
+                if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                    // Remove active class from all links
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    // Add active class to current link
+                    navLink.classList.add('active');
+                }
+            }
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     showSlide(0);
     startAutoSlide();
     initializeTestimonialSlideshow();
     handleFormSubmission();
+    initializeMobileNav();
 });

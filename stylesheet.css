@@ -88,6 +88,153 @@ body {
     color: var(--text-color);
     font-family: 'Source Sans Pro', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
+    padding-top: 70px; /* Add space for fixed navigation */
+}
+
+/* Mobile Navigation Styles */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    z-index: 1000;
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nav-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.nav-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburger {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-toggle.active .hamburger:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.nav-toggle.active .hamburger:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .hamburger:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--primary-dark);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-link {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-family: 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: 2rem;
+}
+
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    border-left: 4px solid var(--text-color);
+}
+
+.nav-link:last-child {
+    border-bottom: none;
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .nav-header {
+        padding: 1rem 2rem;
+    }
+    
+    .nav-title {
+        font-size: 1.4rem;
+    }
+    
+    .nav-link {
+        padding: 1.2rem 2rem;
+        font-size: 1.2rem;
+    }
+}
+
+/* Hide mobile nav on larger screens */
+@media (min-width: 1024px) {
+    .mobile-nav {
+        display: none;
+    }
+    
+    body {
+        padding-top: 0;
+    }
+    
+    .hero {
+        min-height: 90vh !important;
+    }
 }
 
 .hero{
@@ -98,7 +245,7 @@ body {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     color: var(--primary-dark);
     border-bottom: 3px solid var(--primary-color);
-    height: 90vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,6 +333,25 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
     
     .reversed {
         flex-direction: column;
+    }
+    
+    /* Larger pony images on tablets and mobile */
+    .content__image {
+        width: 80%;
+        max-width: 400px;
+    }
+    
+    /* Fix content sizing and centering on mobile */
+    .content {
+        width: 100%;
+        padding: 0 1rem;
+        font-size: 1.1rem;
+    }
+    
+    .content p, .content h1 {
+        padding: 0 10px;
+        text-align: center;
+        margin: 1rem 0;
     }
 }
 
@@ -337,13 +503,36 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        min-height: calc(100vh - 70px);
+        padding: 2rem 0;
+    }
+    
     .hero__features {
         justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .feature {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .feature__text {
+        font-size: 0.8rem;
     }
     
     .hero__content {
         text-align: center;
         align-items: center;
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .hero__subtitle {
+        margin: 1rem 0 1.5rem 0;
+        text-align: center;
     }
 }
 
@@ -396,6 +585,29 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
 
 .text {
     color:teal;
+}
+
+/* Content section link styling */
+.content .text a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: all var(--transition-speed) ease;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.content .text a:hover {
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.content .text a:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px var(--shadow-color);
 }
 
 .footer {
@@ -872,12 +1084,19 @@ footer a{
 /* Responsive design for testimonials */
 @media (max-width: 768px) {
     .testimonials-slideshow {
-        margin: 1rem;
-        padding: 30px 20px;
+        margin: 1rem auto;
+        padding: 20px;
     }
     
     .testimonial-content {
-        padding: 1.5rem;
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .testimonials-title {
+        text-align: center;
+        margin: 0 auto 2rem auto;
+        padding: 0;
     }
     
     .testimonial-text {
@@ -890,11 +1109,32 @@ footer a{
     }
 }
 
+/* Additional mobile fixes for very small screens */
+@media (max-width: 480px) {
+    .testimonials-slideshow {
+        margin: 0.5rem auto;
+        padding: 10px;
+    }
+    
+    .testimonial-content {
+        padding: 0.5rem;
+    }
+    
+    .testimonials-title {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100%;
+        display: block;
+    }
+}
+
 @media only screen and (max-width: 730px) {
     .container {
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
+        gap: 1.5rem;
     }
 
     .section {
@@ -903,27 +1143,52 @@ footer a{
     }
 
     .content__image {
-        width: 70%;
+        width: 85%;
     }
 
     .hero__content {
         justify-content: flex-start;
         text-align: center;
+        padding: 0 0.5rem;
     }
 
     .hero__image {
-        max-width: 350px;
+        max-width: 280px;
+        margin-top: 1rem;
     }
 
     .hero__img{
         margin-left: 0px;
-        margin-top: 16px;
+        margin-top: 0px;
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .hero__features {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+        width: 100%;
+    }
+    
+    .feature {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
     }
 
     .content {
-        width:auto;
+        width: 100%;
         text-align: center;
         word-wrap: break-word;
+        padding: 0 0.5rem;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .content p, .content h1 {
+        padding: 0 5px;
+        margin: 0.8rem 0;
     }
 
     .footer__img {
@@ -952,10 +1217,63 @@ footer a{
         margin:10px 4px;
     }
     .title {
-        margin-right: 0px;    
+        margin-right: 0px;
+        text-align: center;
     }
 
     .form {
         max-width: 1020px;
+    }
+}
+
+/* Additional mobile optimizations for very small screens */
+@media only screen and (max-width: 480px) {
+    .hero {
+        padding: 1.5rem 0;
+    }
+    
+    .hero__content {
+        padding: 0 1rem;
+    }
+    
+    .hero__image {
+        max-width: 220px;
+    }
+    
+    .hero__img {
+        max-width: 220px;
+    }
+    
+    .hero__features {
+        gap: 0.6rem;
+    }
+    
+    .feature {
+        padding: 0.4rem 0.8rem;
+        max-width: 200px;
+    }
+    
+    .feature__text {
+        font-size: 0.75rem;
+    }
+    
+    .feature__icon {
+        font-size: 1em;
+    }
+    
+    /* Make pony images larger on very small screens */
+    .content__image {
+        width: 90%;
+    }
+    
+    /* Additional content fixes for very small screens */
+    .content {
+        font-size: 1rem;
+        padding: 0 0.25rem;
+    }
+    
+    .content p, .content h1 {
+        padding: 0;
+        margin: 0.5rem 0;
     }
 }
